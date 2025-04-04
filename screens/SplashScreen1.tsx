@@ -10,7 +10,7 @@ export const SplashScreen: React.FC<RootRouteProps> = props => {
   const imageResource =
     APPLICATION_THEME?.toLowerCase() === 'purple'
       ? require('../assets/purpleSplashScreen.png')
-      : require('../assets/SplashScreen.png');
+      : require('../assets/SplashScreen1.png');
   const controller = useAppLayout();
   useEffect(() => {
     setTimeout(() => {
