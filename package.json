@@ -8,6 +8,7 @@
     "ios": "react-native run-ios",
     "android:clean": "cd android && gradlew clean && cd ..",
     "build:android:mosip": "cd android && ./gradlew :app:assembleResidentappRelease && cd ..",
+    "build:android:mosip0": "cd android && ./gradlew :app:bundleResidentappRelease && cd ..",
     "build:android:mosip1": "cd android && gradlew :app:bundleResidentappRelease && cd ..",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "test": "jest",
