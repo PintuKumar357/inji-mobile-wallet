@@ -160,7 +160,7 @@ export const SettingScreen: React.FC<
           <DataBackupAndRestore />
           <SettingsKeyManagementScreen controller={controller} />
 
-          {CREDENTIAL_REGISTRY_EDIT === 'true' && (
+          {/* {CREDENTIAL_REGISTRY_EDIT === 'true' && (
             <EditableListItem
               testID="credentialRegistry"
               title={t('credentialRegistry')}
@@ -185,7 +185,7 @@ export const SettingScreen: React.FC<
               progress={controller.isResetInjiProps}
               titleColor={Theme.Colors.settingsLabel}
             />
-          )}
+          )} */}
 
           <ListItem
             topDivider
