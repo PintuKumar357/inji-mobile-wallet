@@ -175,6 +175,7 @@ export const ViewVcModal: React.FC<ViewVcModalProps> = props => {
           vcHasImage={profileImage !== undefined}
           onModalDismissWithCleanup={handleModalDismiss}
           navigation={props.navigation}
+          vcStatus={props.vcStatus}
         />
       )}
 

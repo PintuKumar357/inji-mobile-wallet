@@ -62,6 +62,7 @@ import StarIcon from '../../assets/credentialRegestryStar.svg';
 import SelectedCheckBox from '../../assets/Selected_Check_Box.svg';
 import FailedLoadQRIcon from '../../assets/failed_load_qr_icon.svg';
 import FailedQRShare from '../../assets/failed_qr_share.svg';
+import RevokedIcon from '../../assets/Revoked_Icon.svg';
 export class SvgImage {
   static selectedCheckBox() {
     return <SelectedCheckBox />;
@@ -599,6 +600,10 @@ export class SvgImage {
 
   static FailedQRShare() {
     return <FailedQRShare {...testIDProps('failedQRShare')} />;
+  }
+
+  static RevokedIcon() {
+    return <RevokedIcon {...testIDProps('revokedIcon')} />;
   }
 }
 

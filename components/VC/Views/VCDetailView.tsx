@@ -45,6 +45,8 @@ export const VCDetailView: React.FC<
   const verifiableCredential = props.credential;
   const wellknownDisplayProperty = new Display(props.wellknown);
 
+  console.log("VCStatus in VCDetailView:", props.vcStatus);
+
   const shouldShowHrLine = verifiableCredential => {
     let availableFieldNames: string[] = [];
     if (props.verifiableCredentialData.vcMetadata.format === VCFormat.ldp_vc) {
@@ -316,4 +318,5 @@ export interface VCItemDetailsProps {
   activeTab?: Number;
   vcHasImage: boolean;
   navigation?: any;
+  vcStatus?: string;
 }

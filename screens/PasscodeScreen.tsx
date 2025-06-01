@@ -40,8 +40,7 @@ export const PasscodeScreen: React.FC<PasscodeRouteProps> = props => {
   const [resetPinModalVisible, setResetPinModalVisible] = useState(false);
 
   const resetAuthToDefault = useResetAuthToDefault();
-  const {resetAppStorageToDefault, resetMachinesToInitialState} =
-    useResetAppStorageToDefault();
+  const { resetAppStorageToDefault, resetMachinesToInitialState } = useResetAppStorageToDefault();
 
   const {appService} = useContext(GlobalContext);
 
@@ -208,7 +207,7 @@ export const PasscodeScreen: React.FC<PasscodeRouteProps> = props => {
           color={Theme.Colors.errorMessage}>
           {controller.error}
         </Text>
-        {/* {!isSettingUp && (
+        {!isSettingUp && (
           <TouchableOpacity
             onPress={() => {
               setResetPinModalVisible(true);
@@ -224,7 +223,7 @@ export const PasscodeScreen: React.FC<PasscodeRouteProps> = props => {
               {t('forgotPassword')}
             </Text>
           </TouchableOpacity>
-        )} */}
+        )}
       </Column>
       <Modal
         isVisible={resetPinModalVisible}
@@ -301,13 +300,13 @@ export const PasscodeScreen: React.FC<PasscodeRouteProps> = props => {
               style={{width: 1, height: '100%', backgroundColor: '#A7A7A7'}}
             />
             <TouchableOpacity
-              onPress={async () => {
+              onPress={async() => {
                 //const storeService = appService.children.get('store');
                 //storeService?.send('CLEAR');
 
                 //controller.RESET_AUTH();
                 //await resetAuthToDefault();
-                await resetAppStorageToDefault(); // Resetting app storage to default
+                await resetAppStorageToDefault();  // Resetting app storage to default
                 resetMachinesToInitialState(); // Resetting machines to initial state
 
                 setResetPinModalVisible(false);

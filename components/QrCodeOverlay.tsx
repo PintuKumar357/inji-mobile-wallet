@@ -21,6 +21,7 @@ export const QrCodeOverlay: React.FC<QrCodeOverlayProps> = props => {
   const {t} = useTranslation('VcDetails');
   const [qrString, setQrString] = useState('');
   const [qrError, setQrError] = useState(false);
+  const [isQRLoading, setIsQRLoding] = useState(true);
   const base64ImageType = 'data:image/png;base64,';
   const {RNSecureKeystoreModule} = NativeModules;
 
@@ -77,6 +78,7 @@ export const QrCodeOverlay: React.FC<QrCodeOverlayProps> = props => {
       } else {
         setQrError(true);
       }
+      setIsQRLoding(false);
     })();
   }, []);
 
@@ -92,7 +94,7 @@ export const QrCodeOverlay: React.FC<QrCodeOverlayProps> = props => {
     props.navigation.navigate(BOTTOM_TAB_ROUTES.share);
   };
 
-  return qrString != '' && !qrError ? (
+  return !isQRLoading && (qrString != '' && !qrError ? (
     <React.Fragment>
       <View testID="qrCodeView" style={Theme.QrCodeStyles.QrView}>
         <Pressable
@@ -201,45 +203,7 @@ export const QrCodeOverlay: React.FC<QrCodeOverlayProps> = props => {
         </Column>
       </Pressable>
     </View>
-  );
-
-  // <View testID="vcShareView" style={Theme.QrCodeStyles.VCShareDetailView}>
-  //   <Pressable
-  //     {...testIDProps('qrCodePressable')}
-  //     accessible={false}
-  //     onPress={vcShareView}>
-
-  //     <Column testID="qrCodeFailedDetails" style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-  //       <View style={{ marginBottom: 4 }}>
-  //         {SvgImage.FailedLoadQRIcon()}
-  //       </View>
-  //       <Text
-  //         style={{
-  //           fontFamily: 'Inter_700Bold',
-  //           fontSize: 14,
-  //           fontWeight: '700',
-  //           color: '#FF0009',
-  //         }}>
-  //         {t('failedLoadingQRReaction')}
-  //       </Text>
-  //       <Text
-  //         style={{
-  //           fontFamily: 'Inter_400Regular',
-  //           fontSize: 10,
-  //           fontWeight: '400',
-  //           color: '#000000',
-  //           textAlign: 'center',
-  //           lineHeight: 12,
-  //           paddingHorizontal: 15
-  //         }}>
-  //         {t('failedLoadingQRMessage')}
-  //       </Text>
-  //       <View style={{ marginTop: 8 }}>
-  //         {SvgImage.FailedQRShare()}
-  //       </View>
-  //     </Column>
-  //   </Pressable>
-  // </View>
+  ));
 };
 
 interface QrCodeOverlayProps {

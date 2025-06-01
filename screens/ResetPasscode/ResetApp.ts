@@ -19,15 +19,13 @@ import {biometricsMachine} from '../../machines/biometrics';
 import {pinInputMachine} from '../../machines/pinInput';
 
 export function useResetAppStorageToDefault() {
-  const {appService} = React.useContext(GlobalContext);
+  const {appService, setAppService} = React.useContext(GlobalContext);
   const storeService = appService.children.get('store');
   const encryptionKey =
     storeService?.getSnapshot()?.context?.encryptionKey || '';
 
-  // MMKV does not have getAllKeys, so we use getAllKeys from storage if available or handle differently
   const resetAppStorageToDefault = async () => {
     try {
-      // Assuming MMKV has getAllKeys method, if not, this needs to be replaced with appropriate method
       const allKeys = await MMKV.indexer.strings.getKeys();
 
       for (const key of allKeys) {
@@ -58,35 +56,14 @@ export function useResetAppStorageToDefault() {
     }
   };
 
-  const resetMachinesToInitialState = () => {
-    if (appService) {
+   const resetMachinesToInitialState = () => {
+    if (appService && setAppService) {
       appService.stop();
-      appService.start();
+      const newAppService = interpret(appMachine).start();
+      setAppService(newAppService);
       console.log('appMachine has been reset to its initial state.');
-
-      // Reset all child services of appService
-      appService.children.forEach((childService, key) => {
-        if (
-          childService &&
-          typeof childService === 'object' &&
-          'stop' in childService &&
-          typeof childService.stop === 'function' &&
-          'start' in childService &&
-          typeof childService.start === 'function'
-        ) {
-          childService.stop();
-          childService.start();
-          console.log(
-            `Child service '${key}' has been reset to its initial state.`,
-          );
-        } else {
-          console.warn(
-            `Child service '${key}' does not have stop/start methods or is not an object.`,
-          );
-        }
-      });
     } else {
-      console.warn('appService is not available to reset.');
+      console.warn('appService or setAppService is not available to reset.');
     }
   };
 

@@ -5,6 +5,7 @@ export const VcDetailsContainer: React.FC<
   VCItemDetailsProps & {
     onModalDismissWithCleanup?: () => void;
     navigation?: any;
+    vcStatus?: string;
   }
 > = props => {
   return (
@@ -12,6 +13,7 @@ export const VcDetailsContainer: React.FC<
       {...props}
       onModalDismissWithCleanup={props.onModalDismissWithCleanup}
       navigation={props.navigation}
+      vcStatus={props.vcStatus}
     />
   );
 };

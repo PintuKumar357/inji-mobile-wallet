@@ -150,6 +150,7 @@ export const DefaultTheme = {
     urlLink: Colors.Orange,
     warningText: Colors.Red,
     PendingIcon: Colors.Yellow,
+    RevokedIcon: Colors.Red,
     selectIDTextGradient: ['#F5F5F5', '#FFFFFF'],
     forgotPin: Colors.Blue,
   },

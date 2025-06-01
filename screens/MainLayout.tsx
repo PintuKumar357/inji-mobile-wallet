@@ -19,7 +19,7 @@ import {CopilotTooltip} from '../components/CopilotTooltip';
 import {Copilot} from '../components/ui/Copilot';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from '@xstate/react';
+import { useSafeSelector } from '../shared/hooks/useSafeSelector';
 import {selectIsLinkCode} from '../machines/app';
 import {BOTTOM_TAB_ROUTES} from '../routes/routesConstants';
 
@@ -38,7 +38,7 @@ export const MainLayout: React.FC = () => {
   };
   const navigation = useNavigation<ScanLayoutNavigation>();
 
-  const linkCode = useSelector(appService, selectIsLinkCode);
+  const linkCode = useSafeSelector(appService, selectIsLinkCode);
 
   useEffect(() => {
     if (linkCode != '') {
