@@ -20,7 +20,7 @@ import {CopilotTooltip} from '../components/CopilotTooltip';
 import {Copilot} from '../components/ui/Copilot';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
-import { useSafeSelector } from '../shared/hooks/useSafeSelector';
+import {useSafeSelector} from '../shared/hooks/useSafeSelector';
 import {selectIsLinkCode} from '../machines/app';
 import {BOTTOM_TAB_ROUTES} from '../routes/routesConstants';
 
@@ -46,6 +46,7 @@ export const MainLayout: React.FC = () => {
       navigation.navigate(BOTTOM_TAB_ROUTES.share);
     }
   }, [linkCode]);
+  const insets = useSafeAreaInsets();
 
   return (
     <View
