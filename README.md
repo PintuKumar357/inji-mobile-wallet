@@ -264,7 +264,10 @@ artifacts {
 
 In android/build.gradle, inside the repositories block, add: mavenLocal()
 
-**Step 4:** Add the AAR "vcverifier-aar-1.3.1-SNAPSHOT-release.aar" file in the libs folder of project
+**Step 4:** Add the AAR "vcverifier-aar-1.3.1-SNAPSHOT-release.aar" file in the libs folder of project and android/app/build.gradle file
+implementation("io.mosip:vcverifier-aar:1.3.1-SNAPSHOT"){
+        exclude group: 'org.bouncycastle', module: 'bcpkix-jdk15on'
+}
 
 **Step 5:** Clean the Android Build : 
      cd android && gradlew clean && cd ..
