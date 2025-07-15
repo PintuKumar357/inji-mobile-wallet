@@ -570,7 +570,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.15.1;
+				MARKETING_VERSION = 0.15.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -609,7 +609,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.15.1;
+				MARKETING_VERSION = 0.15.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -777,10 +777,10 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		9C5E690F2D0ACAC000D31852 /* XCRemoteSwiftPackageReference "inji-vci-client-ios-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mosip/inji-vci-client-ios-swift/";
+			repositoryURL = "https://github.com/tejash-jl/inji-vci-client-ios-swift/";
 			requirement = {
 				kind = exactVersion;
-				version = 0.2.1;
+				version = 0.2.2;
 			};
 		};
 		9C5E69122D0ACADA00D31852 /* XCRemoteSwiftPackageReference "pixelpass-ios-swift" */ = {

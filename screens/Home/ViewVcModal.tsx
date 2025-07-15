@@ -148,7 +148,7 @@ export const ViewVcModal: React.FC<ViewVcModalProps> = props => {
       headerElevation={2}>
       <BannerNotificationContainer showVerificationStatusBanner={false} />
 
-      {controller.showVerificationStatusBanner && (
+      {/* {controller.showVerificationStatusBanner && (
         <BannerNotification
           type={verificationStatus?.statusType as BannerStatus}
           message={t(`VcVerificationBanner:${verificationStatus?.statusType}`, {
@@ -158,7 +158,7 @@ export const ViewVcModal: React.FC<ViewVcModalProps> = props => {
           key={'reVerificationInProgress'}
           testId={'reVerificationInProgress'}
         />
-      )}
+      )} */}
 
       {!isVCLoaded(verifiableCredential, fields) ? (
         <ActivityIndicator />
@@ -173,6 +173,9 @@ export const ViewVcModal: React.FC<ViewVcModalProps> = props => {
           walletBindingResponse={controller.walletBindingResponse}
           activeTab={props.activeTab}
           vcHasImage={profileImage !== undefined}
+          onModalDismissWithCleanup={handleModalDismiss}
+          navigation={props.navigation}
+          vcStatus={props.vcStatus}
         />
       )}
 

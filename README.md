@@ -182,3 +182,95 @@ To learn more about React Native, take a look at the following resources:
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for  
   React Native.
+
+## Setting up Inji VCI Client (Local JAR Installation)
+
+**Step 1:** Clone the Repository
+
+git clone https://github.com/mosip/inji-vci-client.git
+cd inji-vci-client
+
+**Step 2:** Install the JAR to Local Maven Repository
+
+gradlew jarRelease
+Navigate to the Kotlin folder (inside the cloned repo) and run the following command in Command Prompt or Terminal:
+
+mvn install:install-file -Dfile=./vci-client/build/libs/vci-client-release-1.1.0-SNAPSHOT.jar -DgroupId=io.mosip -DartifactId=inji-vci-client-jar -Dversion=1.1.0-SNAPSHOT -Dpackaging=jar
+
+**Step 3:** Add Maven Local Repository
+
+In android/build.gradle, inside the repositories block, add: mavenLocal()
+
+**Step 4:** Clean the Android Build : cd android && gradlew clean && cd ..
+
+
+## Setting up VC Verifier(Local AAR Installation)
+
+**Step 1:** Clone the Repository
+
+git clone https://github.com/iGovTT/VerifyTT.git
+cd VerifyTT
+git checkout dev
+
+
+**Step 2:** Install the AAR File to Locally
+
+Navigate to the "service\vc-verifier-version2\vc-verifier\kotlin\vcverifier" folder (inside the cloned repo) and follow the below steps
+
+1.Comment the signing configuration which u can find in publish-artifact file
+
+ signing {
+ useGpgCmd()
+     sign publishing.publications.aar
+     sign publishing.publications.jarRelease
+ }
+
+2. Change the version in the publish-artifact.gradlew file .
+
+groupId = "io.mosip"
+artifactId = "vcverifier-aar"
+version = "1.3.1-SNAPSHOT"  <---------Change Here
+if (project.gradle.startParameter.taskNames.any { it.contains('assembleRelease') }) {
+artifacts {
+    aar {
+        archivesBaseName = "${artifactId}-${version}"
+    }
+}
+}
+
+3.Commands to build the AAR file:
+
+ ./gradlew assembleRelease && ./gradlew publishToMavenLocal
+
+4. Cross check whether aar file is generated or not in the below path.
+Command: cd %USERPROFILE%\.m2\repository\io\mosip\vcverifier-aar && dir
+
+Note : 
+If you face difficulties with building the AAR file or if the changes are not reflecting(cache).
+Change the version in the publish-artifact.gradlew file and AAR file accordingly.
+
+groupId = "io.mosip"
+artifactId = "vcverifier-aar"
+version = "1.3.1-SNAPSHOT"
+if (project.gradle.startParameter.taskNames.any { it.contains('assembleRelease') }) {
+artifacts {
+    aar {
+        archivesBaseName = "${artifactId}-${version}"
+    }
+}
+}
+
+**Step 3:** Add Maven Local Repository
+
+In android/build.gradle, inside the repositories block, add: mavenLocal()
+
+**Step 4:** Add the AAR "vcverifier-aar-1.3.1-SNAPSHOT-release.aar" file in the libs folder of project and android/app/build.gradle file
+implementation("io.mosip:vcverifier-aar:1.3.1-SNAPSHOT"){
+        exclude group: 'org.bouncycastle', module: 'bcpkix-jdk15on'
+}
+
+**Step 5:** Clean the Android Build : 
+     cd android && gradlew clean && cd ..
+     rmdir /s /q node_modules
+     npm install
+     npm run android:mosip && npm start
