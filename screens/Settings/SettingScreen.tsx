@@ -92,15 +92,15 @@ export const SettingScreen: React.FC<
         <Column
           style={{display: Platform.OS !== 'ios' ? 'flex' : 'none'}}
           backgroundColor={Theme.Colors.lightGreyBackgroundColor}>
-          <Text
+          {/* <Text
             style={{paddingTop: 3}}
             testID="injiAsVerifierApp"
             weight="semibold"
             margin="10"
             color={Theme.Colors.aboutVersion}>
             {t('injiAsVerifierApp')}
-          </Text>
-          <Row
+          </Text> */}
+          {/* <Row
             align="space-evenly"
             backgroundColor={Theme.Colors.whiteBackgroundColor}>
             <Pressable
@@ -119,7 +119,7 @@ export const SettingScreen: React.FC<
             </Pressable>
 
             <ReceivedCards />
-          </Row>
+          </Row> */}
 
           <Text
             weight="semibold"
@@ -167,7 +167,7 @@ export const SettingScreen: React.FC<
           <AboutInji appId={controller.appId} />
 
           <DataBackupAndRestore autoOpen={showDataBackup} />
-          <SettingsKeyManagementScreen controller={controller} />
+          {/* <SettingsKeyManagementScreen controller={controller} /> */}
 
           {/* {CREDENTIAL_REGISTRY_EDIT === 'true' && (
             <EditableListItem
