@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { Icon } from 'react-native-elements';
-import { Column } from '../../components/ui';
-import { Theme } from '../../components/ui/styleUtils';
-import { HomeRouteProps } from '../../routes/routeTypes';
-import { MyVcsTab } from './MyVcsTab';
-import { ReceivedVcsTab } from './ReceivedVcsTab';
-import { ViewVcModal } from './ViewVcModal';
-import { useHomeScreen } from './HomeScreenController';
-import { TabRef } from './HomeScreenMachine';
-import { ActorRefFrom } from 'xstate';
+import React, {useEffect, useState} from 'react';
+import {Icon} from 'react-native-elements';
+import {Column} from '../../components/ui';
+import {Theme} from '../../components/ui/styleUtils';
+import {HomeRouteProps} from '../../routes/routeTypes';
+import {MyVcsTab} from './MyVcsTab';
+import {ReceivedVcsTab} from './ReceivedVcsTab';
+import {ViewVcModal} from './ViewVcModal';
+import {useHomeScreen} from './HomeScreenController';
+import {TabRef} from './HomeScreenMachine';
+import {ActorRefFrom} from 'xstate';
 import LinearGradient from 'react-native-linear-gradient';
-import { ErrorMessageOverlay } from '../../components/MessageOverlay';
-import { Pressable, TouchableOpacity } from 'react-native';
+import {ErrorMessageOverlay} from '../../components/MessageOverlay';
+import {Pressable, TouchableOpacity} from 'react-native';
 import testIDProps from '../../shared/commonUtil';
-import { BannerNotificationContainer } from '../../components/BannerNotificationContainer';
-import { VCItemMachine } from '../../machines/VerifiableCredential/VCItemMachine/VCItemMachine';
-import { VerifiableCredential } from '../../machines/VerifiableCredential/VCMetaMachine/vc';
-import { useTranslation } from 'react-i18next';
-import { Copilot } from '../../components/ui/Copilot';
+import {BannerNotificationContainer} from '../../components/BannerNotificationContainer';
+import {VCItemMachine} from '../../machines/VerifiableCredential/VCItemMachine/VCItemMachine';
+import {VerifiableCredential} from '../../machines/VerifiableCredential/VCMetaMachine/vc';
+import {useTranslation} from 'react-i18next';
+import {Copilot} from '../../components/ui/Copilot';
 import Modal from 'react-native-modal';
-import { Text } from '../../components/ui';
-import { useConsoleAuthData } from '../ResetPasscode/ResetPasscodeFunction';
-import { BOTTOM_TAB_ROUTES } from '../../routes/routesConstants';
-import { useFocusEffect } from '@react-navigation/native';
-import Storage, { MMKV } from '../../shared/storage';
-import { decryptJson, encryptJson } from '../../shared/cryptoutil/cryptoUtil';
-import { GlobalContext } from '../../shared/GlobalContext';
-import { Platform } from 'react-native';
-import { decodeEncodedList, isIndexRevoked } from '../../shared/Utils';
-
+import {Text} from '../../components/ui';
+import {useConsoleAuthData} from '../ResetPasscode/ResetPasscodeFunction';
+import {BOTTOM_TAB_ROUTES} from '../../routes/routesConstants';
+import {useFocusEffect} from '@react-navigation/native';
+import Storage, {MMKV} from '../../shared/storage';
+import {decryptJson, encryptJson} from '../../shared/cryptoutil/cryptoUtil';
+import {GlobalContext} from '../../shared/GlobalContext';
+import {Platform} from 'react-native';
+import {decodeEncodedList, isIndexRevoked} from '../../shared/Utils';
 
 export const HomeScreen: React.FC<
-  HomeRouteProps & { navigationRef?: any }
+  HomeRouteProps & {navigationRef?: any}
 > = props => {
   const [activateBackupModalVisible, setActivateBackupModalVisible] =
     useState(false);
   const controller = useHomeScreen(props);
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   const logAuthData = useConsoleAuthData();
   const [vcStatuses, setVcStatuses] = useState<Record<string, string>>({});
@@ -60,7 +59,7 @@ export const HomeScreen: React.FC<
   useEffect(() => {
     if (!controller.IssuersService && !controller.backupRestoreService) return;
 
-    const subscriptions: Array<{ unsubscribe: () => void }> = [];
+    const subscriptions: Array<{unsubscribe: () => void}> = [];
 
     if (controller.IssuersService && controller.backupRestoreService) {
       const combinedSubscription = controller.IssuersService.subscribe(
@@ -84,7 +83,7 @@ export const HomeScreen: React.FC<
   }, [controller.IssuersService, controller.backupRestoreService]);
 
   const useSetVCsStatus = () => {
-    const { appService } = React.useContext(GlobalContext);
+    const {appService} = React.useContext(GlobalContext);
     const storeService = appService.children.get('store');
     const encryptionKey =
       storeService?.getSnapshot()?.context?.encryptionKey || '';
@@ -138,7 +137,7 @@ export const HomeScreen: React.FC<
     // }
 
     //const statusListCredentialUrl = credentialStatus.statusListCredential;
-    const statusListCredentialUrl = credentialStatus.id;
+    const statusListCredentialUrl = credentialStatus.id + `?now=${Date.now()}`;
     const statusListIndex = parseInt(credentialStatus.statusListIndex);
 
     const response = await fetch(statusListCredentialUrl);
@@ -210,7 +209,7 @@ export const HomeScreen: React.FC<
           }}
           {...testIDProps('downloadCardButton')}
           accessible={false}
-          style={({ pressed }) =>
+          style={({pressed}) =>
             pressed
               ? Theme.Styles.downloadFabIconPressed
               : Theme.Styles.downloadFabIconNormal
