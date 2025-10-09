@@ -10,25 +10,25 @@ import {
   isIOS,
   EXPIRED_VC_ERROR_CODE,
 } from '../../shared/constants';
-import {assign, send} from 'xstate';
-import {StoreEvents} from '../store';
-import {BackupEvents} from '../backupAndRestore/backup';
-import {getVCMetadata, VCMetadata} from '../../shared/VCMetadata';
-import {isHardwareKeystoreExists} from '../../shared/cryptoutil/cryptoUtil';
-import {ActivityLogEvents} from '../activityLog';
+import { assign, send } from 'xstate';
+import { StoreEvents } from '../store';
+import { BackupEvents } from '../backupAndRestore/backup';
+import { getVCMetadata, VCMetadata } from '../../shared/VCMetadata';
+import { isHardwareKeystoreExists } from '../../shared/cryptoutil/cryptoUtil';
+import { ActivityLogEvents } from '../activityLog';
 import {
   getEndEventData,
   getImpressionEventData,
   sendEndEvent,
   sendImpressionEvent,
 } from '../../shared/telemetry/TelemetryUtils';
-import {TelemetryConstants} from '../../shared/telemetry/TelemetryConstants';
-import {NativeModules} from 'react-native';
-import {KeyTypes} from '../../shared/cryptoutil/KeyTypes';
-import {VCActivityLog} from '../../components/ActivityLogEvent';
-import {isNetworkError} from '../../shared/Utils';
+import { TelemetryConstants } from '../../shared/telemetry/TelemetryConstants';
+import { NativeModules } from 'react-native';
+import { KeyTypes } from '../../shared/cryptoutil/KeyTypes';
+import { VCActivityLog } from '../../components/ActivityLogEvent';
+import { isNetworkError } from '../../shared/Utils';
 
-const {RNSecureKeystoreModule} = NativeModules;
+const { RNSecureKeystoreModule } = NativeModules;
 export const IssuersActions = (model: any) => {
   return {
     setVerificationResult: assign({
@@ -195,6 +195,15 @@ export const IssuersActions = (model: any) => {
           },
           ...rest
         } = context.credentialWrapper;
+
+        // console.log("validUntil filteredVerifiableCredential : ", filteredVerifiableCredential)        
+        // const credentialCopy = JSON.parse(JSON.stringify(filteredVerifiableCredential));
+        // if (credentialCopy.credential && credentialCopy.credential.validUntil === null) {
+        //   delete credentialCopy.credential.validUntil;
+        // }
+        // const finalVerifiableCredential = credentialCopy;
+        // console.log("validUntil finalVerifiableCredential : ", finalVerifiableCredential)
+
         const storableData = {
           ...rest,
           verifiableCredential: filteredVerifiableCredential,
@@ -322,7 +331,7 @@ export const IssuersActions = (model: any) => {
         getEndEventData(
           TelemetryConstants.FlowType.vcDownload,
           TelemetryConstants.EndEventStatus.success,
-          {'VC Key': context.keyType},
+          { 'VC Key': context.keyType },
         ),
       );
     },
@@ -332,7 +341,7 @@ export const IssuersActions = (model: any) => {
         getEndEventData(
           TelemetryConstants.FlowType.vcDownload,
           TelemetryConstants.EndEventStatus.failure,
-          {'VC Key': context.keyType},
+          { 'VC Key': context.keyType },
         ),
       );
     },

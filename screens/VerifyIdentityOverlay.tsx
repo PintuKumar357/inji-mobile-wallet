@@ -1,18 +1,26 @@
 import React from 'react';
-import {FaceScanner} from '../components/FaceScanner/FaceScanner';
-import {Column} from '../components/ui';
-import {Theme} from '../components/ui/styleUtils';
-import {VerifiableCredential} from '../machines/VerifiableCredential/VCMetaMachine/vc';
-import {Modal} from '../components/ui/Modal';
-import {useTranslation} from 'react-i18next';
-import {Error} from '../components/ui/Error';
-import {SvgImage} from '../components/ui/svg';
+import { FaceScanner } from '../components/FaceScanner/FaceScanner';
+import { Column } from '../components/ui';
+import { Theme } from '../components/ui/styleUtils';
+import { VerifiableCredential } from '../machines/VerifiableCredential/VCMetaMachine/vc';
+import { Modal } from '../components/ui/Modal';
+import { useTranslation } from 'react-i18next';
+import { Error } from '../components/ui/Error';
+import { SvgImage } from '../components/ui/svg';
 
 export const VerifyIdentityOverlay: React.FC<
   VerifyIdentityOverlayProps
 > = props => {
-  const {t} = useTranslation('VerifyIdentityOverlay');
+  const { t } = useTranslation('VerifyIdentityOverlay');
   const credential = props.credential;
+
+  //console.log("VerifyIdentityOverlay Before : ", credential)
+  credential?.forEach(obj => {
+    if (obj?.validUntil === null) {
+      delete obj?.validUntil;
+    }
+  });
+  //console.log("VerifyIdentityOverlay After : ", credential)
 
   const modalProps = {
     isVisible: props.isVerifyingIdentity,
@@ -67,8 +75,8 @@ export const VerifyIdentityOverlay: React.FC<
         textButtonTestID={'home'}
         textButtonText={t('ScanScreen:status.accepted.home')}
         textButtonEvent={props.onNavigateHome}
-        customImageStyles={{paddingBottom: 0, marginBottom: -6}}
-        customStyles={{marginTop: '20%'}}
+        customImageStyles={{ paddingBottom: 0, marginBottom: -6 }}
+        customStyles={{ marginTop: '20%' }}
         testID={'shareWithSelfieError'}
       />
     </>
