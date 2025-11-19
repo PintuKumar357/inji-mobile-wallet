@@ -80,6 +80,7 @@ export const getFieldValue = (
           display={display}
           vcMetadata={props.verifiableCredentialData.vcMetadata}
           vcStatus={props.vcStatus}
+          textColor='#000'
         />
       );
     case 'idType':
